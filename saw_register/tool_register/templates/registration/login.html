@@ -1,0 +1,13 @@
+{% extends "index.html" %}
+
+{% block login %}
+<div style="margin: 300px auto 0 auto; width: fit-content;">
+  <form method="post" style="background-color: rgb(182, 204, 200); width: fit-content; padding: 10px; display: flex; align-items: center; flex-direction: column; border: 1px solid grey; border-radius: 15px;">
+    <h2 style="text-align: center; margin-bottom: 15px;">Login</h2>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button style="max-width: 100px;" type="submit">Sign Up</button>
+  </form>
+  <a href="{% url 'signup' %}"><p style="text-align: center; margin-top: 15px;">To create an account, click here</p></a>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+
+{% block saw_brands %}
+{% if user.is_authenticated %}
+<h1 style="text-align: center; margin-top: 100px;">Saw Brands</h1>
+
+<div style="max-width: 300px; margin: 50px auto 0 auto;">
+    <div class="list-group">
+        {% for saw_brand in object_list %}
+        <a href="{% url 'saw' saw_brand.id %}" class="list-group-item list-group-item-action">{{ saw_brand.brand }}</a>
+        {% endfor %}
+    </div>
+</div>
+    
+{% else %}
+
+
+<h1 style="text-align: center; margin-top: 300px;">Please Login</h1>
+{% endif %}
+{% endblock %}

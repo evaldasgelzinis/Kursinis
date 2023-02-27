@@ -7,37 +7,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
-# class SignUpView(CreateView):
-#     model = Employee
-#     form = forms.Form
-#     fields = '__all__'
-#     template_name = "registration/signup.html"
 
-#     def post(self, request):
-#         #surenkame formos laukelius, truksta password sutikrinimo laukelio
-#         token = request.POST.get('csrfmiddlewaretoken')
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-#         name = request.POST.get('name')
-#         surename = request.POST.get('surename')
-
-#         #laukeliu tikrinimas
-#         if Employee.objects.filter(username=username).exists():
-#             message = "username {} already exist".format(username)
-
-#             context = {
-#                 'message': message,
-#             }
-
-#             # return render(request, 'registration/signup.html', context=context)
-#             return reverse(request, 'tool_register:signup')
-  
-#         #išsaugom forma
-#         employee = Employee(username=username, password=password, name=name, surename=surename)
-#         employee.save()
-
-
-#         return render(request, 'index.html')
 
 class WorkPlaceView(ListView):
     model = WorkPlace
@@ -55,7 +25,7 @@ class SawBrandView(ListView):
 
 class SawView(ListView):
     model = Saw
-    template_name = "pages/saw.html"
+    template_name = "pages/meters.html"
 
     def get(self, request, *args, **kwargs):
         saw_id = kwargs['pk']
@@ -63,6 +33,17 @@ class SawView(ListView):
 
 
         return render(request, 'pages/saw.html', context={'object_list': saws})    
+    
+class MeterView(ListView):
+    model = Meter
+    template_name = "pages/meters.html"
+
+    def get(self, request, *args, **kwargs):
+        meter_id = kwargs['pk']
+        meters = Meter.objects.filter(saw=meter_id)
+
+
+        return render(request, 'pages/meters.html', context={'object_list': meters}) 
     
 
 class RegisterForm(UserCreationForm):

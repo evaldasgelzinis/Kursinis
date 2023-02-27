@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+
+{% block meters %}
+{% if user.is_authenticated %}
+<h1 style="text-align: center; margin-top: 100px;">Sawsssssssss</h1>
+
+<div style="max-width: 300px; margin: 50px auto 0 auto;">
+    <div class="list-group">
+        {% for saw in object_list %}
+        <a href="{% url 'meters' meter.id %}" class="list-group-item list-group-item-action">{{ saw }}</a>
+        {% endfor %}
+    </div>
+</div>
+    
+{% else %}
+
+
+<h1 style="text-align: center; margin-top: 300px;">Please Login</h1>
+{% endif %}
+{% endblock %}

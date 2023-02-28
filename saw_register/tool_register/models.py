@@ -37,7 +37,7 @@ class Meter(Model):
     ]
     #laukeliai
     saw = ForeignKey(Saw, on_delete=CASCADE)                     
-    metres = IntegerField(null=False)
+    meters = IntegerField(null=False)
     date_created = DateTimeField(auto_now_add=True)
     date_modified = DateTimeField(auto_now=True)
     pamaina = CharField(

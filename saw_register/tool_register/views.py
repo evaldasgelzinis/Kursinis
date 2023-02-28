@@ -34,16 +34,18 @@ class SawView(ListView):
 
         return render(request, 'pages/saw.html', context={'object_list': saws})    
     
-class MeterView(ListView):
+class MetersView(ListView):
     model = Meter
     template_name = "pages/meters.html"
 
     def get(self, request, *args, **kwargs):
         meter_id = kwargs['pk']
         meters = Meter.objects.filter(saw=meter_id)
+        saw = Saw.objects.get(pk=meter_id)
+        
 
 
-        return render(request, 'pages/meters.html', context={'object_list': meters}) 
+        return render(request, 'pages/meters.html', context={'object_list': meters, 'saw': saw} ) 
     
 
 class RegisterForm(UserCreationForm):
@@ -66,7 +68,7 @@ def sign_up(request):
         return render(request, 'registration/signup.html', { 'form': form})
 
     if request.method == 'POST':
-        # trūksta firstname, lastname laukeliu formoje, duombazėje yra
+        # trūksta firstname, lastname laukeliu formoje, duombazėje yra, galimybė pridėti
         username = request.POST.get('username')
         password = request.POST.get('password1')
         email = request.POST.get('email')

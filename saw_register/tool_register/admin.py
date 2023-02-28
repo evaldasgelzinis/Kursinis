@@ -15,7 +15,7 @@ class SawAdmin(admin.ModelAdmin):
 
 @admin.register(Meter)
 class MeterAdmin(admin.ModelAdmin):
-    list_display = ('saw', 'metres', 'date_created', 'date_modified')
+    list_display = ('saw', 'meters', 'date_created', 'date_modified')
     pass
 
 @admin.register(WorkPlace)

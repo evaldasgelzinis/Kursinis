@@ -42,10 +42,12 @@ class MetersView(ListView):
         meter_id = kwargs['pk']
         meters = Meter.objects.filter(saw=meter_id)
         saw = Saw.objects.get(pk=meter_id)
+
+        saw_count = meters.count()
         
 
 
-        return render(request, 'pages/meters.html', context={'object_list': meters, 'saw': saw} ) 
+        return render(request, 'pages/meters.html', context={'object_list': meters, 'saw': saw, 'saw_count': saw_count} ) 
     
 
 class RegisterForm(UserCreationForm):

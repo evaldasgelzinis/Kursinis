@@ -19,7 +19,7 @@ class SawBrand(Model):
 
 class Saw(Model):
     saw_brand = ForeignKey(SawBrand, on_delete=CASCADE)                                  
-    name = TextField(max_length=100)
+    name = CharField(max_length=100)
     date_created = DateTimeField(auto_now_add=True)
     date_modified = DateTimeField(auto_now=True)
 
@@ -36,7 +36,7 @@ class Meter(Model):
         (TRECIA, 'trecia'),
     ]
     #laukeliai
-    saw = ForeignKey(Saw, on_delete=CASCADE)                     
+    saw = ForeignKey(Saw, on_delete=CASCADE, null=True, blank=True)                     
     meters = IntegerField(null=False)
     date_created = DateTimeField(auto_now_add=True)
     date_modified = DateTimeField(auto_now=True)

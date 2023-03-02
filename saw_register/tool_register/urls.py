@@ -6,5 +6,7 @@ urlpatterns = [
     path('saw_brands/<int:pk>', SawBrandView.as_view(), name='saw_brands'),
     path('saw/<int:pk>', SawView.as_view(), name='saw'),
     path('meters/<int:pk>', MetersView.as_view(), name='meters'),
+    path('add_new_saw/', AddNewSawCreateView.as_view(), name='new_saw'),
     path('signup/', sign_up, name='signup'),
 ]
+

@@ -9,6 +9,25 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 
+class AddNewSawCreateView(CreateView):
+    model = Saw
+    template_name = 'pages/add_new_saw.html'
+    fields = ['saw_brand', 'name']
+
+    def form_valid(request, form):
+        saw_brand_name = form.cleaned_data['saw_brand']
+        saw_brand = SawBrand.objects.filter(brand=saw_brand_name).values()[0]['id']
+        
+        if Saw.objects.filter(name=saw_brand).exists():
+                
+
+            form.save()
+        
+        return  redirect(f'/tool_register/saw/{saw_brand}')
+
+    
+
+
 class WorkPlaceView(ListView):
     model = WorkPlace
     template_name = "pages/home.html"
@@ -42,12 +61,17 @@ class MetersView(ListView):
         meter_id = kwargs['pk']
         meters = Meter.objects.filter(saw=meter_id)
         saw = Saw.objects.get(pk=meter_id)
+        saw_all_id = Meter.objects.filter(saw = meter_id).aggregate(Sum('meters'))['meters__sum']
+       
 
-        saw_count = meters.count()
         
 
 
-        return render(request, 'pages/meters.html', context={'object_list': meters, 'saw': saw, 'saw_count': saw_count} ) 
+        
+        
+
+
+        return render(request, 'pages/meters.html', context={'object_list': meters, 'saw': saw, 'saw_count': saw_all_id} ) 
     
 
 class RegisterForm(UserCreationForm):
@@ -75,6 +99,7 @@ def sign_up(request):
         password = request.POST.get('password1')
         email = request.POST.get('email')
         password2 = request.POST.get('password2')
+        
 
         #tikriname ar useris neegzistuoja
         if User.objects.filter(username=username).exists():
@@ -99,6 +124,7 @@ def sign_up(request):
                 'form': form
             }
 
+
             return render(request, 'registration/signup.html', context=err_message)
 
         
@@ -106,4 +132,4 @@ def sign_up(request):
         new_user = User(username=username, password=password, email=email)
         new_user.save()
 
-        return render(request, 'pages/home.html')      
+    return render(request, 'pages/home.html')      
